@@ -1,5 +1,6 @@
 const { Builder, By, Key, until } = require('selenium-webdriver')
 const chrome = require('selenium-webdriver/chrome')
+require('dotenv').config();
 
 let url = `https://github.com/retsaftu/sqat03`
 
@@ -13,8 +14,8 @@ let createNewFileXpath = `//*[@id="repo-content-pjax-container"]/div/div/div[3]/
 let newFileNameXpath = `//*[@id="repo-content-pjax-container"]/div/div/form[2]/div/div[1]/span/input`
 
 let user = {
-    email: '*****@gmail.com',
-    password: '******'
+    email: process.env.USER_EMAIL,
+    password: process.env.USER_PASSWORD
 }
 async function start() {
     const options = new chrome.Options()
@@ -47,7 +48,7 @@ async function start() {
         await driver.sleep(1000)
         await driver.findElement(By.xpath(createNewFileXpath)).click()
         await driver.sleep(3000)
-        await driver.findElement(By.xpath(newFileNameXpath)).sendKeys(user.email);
+        await driver.findElement(By.xpath(newFileNameXpath)).sendKeys(process.env.NEW_FILE_NAME);
 
 
         await driver.sleep(5000)
